@@ -1,6 +1,7 @@
 import os
 import pygame
 import sys
+import start_screen
 
 
 class Tile(pygame.sprite.Sprite):
@@ -21,7 +22,7 @@ class Player(pygame.sprite.Sprite):
 
     def move(self, direction, level_map):
         if direction == 'up':
-            if level_map[int(self.coords[0]-0.5)][int(self.coords[1])] in ['.', '@', '$']:
+            if level_map[int(self.coords[0] - 0.5)][int(self.coords[1])] in ['.', '@', '$']:
                 self.rect.y -= 25
                 self.coords[0] -= 0.5
         elif direction == 'right':
@@ -57,19 +58,21 @@ class Camera:
 
 FPS = 60
 
+
 def terminate():
     pygame.quit()
     sys.exit()
+
 
 def start_screen():
     intro_text = ["              ПРАВИЛА ИГРЫ", "", "",
                   "Герой передвигается по нажатию стрелок в "
                   "соответствующем направлении",
-                  "Нажмите любую клавишу, чтобы начать",]
+                  "Нажмите любую клавишу, чтобы начать", ]
     size = WIDTH, HEIGHT = 800, 450
     screen = pygame.display.set_mode(size)
 
-    fon = pygame.transform.scale(load_image('fon.jpg'), (WIDTH, HEIGHT))
+    fon = pygame.transform.scale(load_image('box.png'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 30)
     text_coord = 100
@@ -91,8 +94,6 @@ def start_screen():
             elif event.type == pygame.KEYDOWN or \
                     event.type == pygame.MOUSEBUTTONDOWN:
                 return  # начинаем игру
-        pygame.display.flip()
-        clock.tick(FPS)
 
 
 def load_level(filename):
@@ -136,23 +137,24 @@ def generate_level(level):
             elif level[y][x] == '@':
                 Tile('empty', x, y)
                 new_player = Player(x, y)
-            elif level[y][x] =="$":
+            elif level[y][x] == "$":
                 Tile('vihod', x, y)
     # вернем игрока, а также размер поля в клетках
     return new_player, x, y
 
 
 if __name__ == '__main__':
+    size = WIDTH, HEIGHT = 850, 350
+    screen = pygame.display.set_mode(size)
     pygame.init()
     pygame.display.init()
-    start_screen()
 
     tile_images = {
         'wall': load_image('box.png'),
         'empty': load_image('grass.png'),
         'vihod': load_image('grass1.png')
     }
-    player_image = load_image('mar.png')
+    player_image = load_image('box.png')
 
     player = None
 
@@ -168,8 +170,6 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     camera = Camera()
 
-    size = WIDTH, HEIGHT = 850, 350
-    screen = pygame.display.set_mode(size)
     pygame.display.set_caption('Перемещение героя')
 
     while True:
