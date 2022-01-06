@@ -1,8 +1,6 @@
 import os
 import pygame
 import sys
-import start_screen
-
 
 class Tile(pygame.sprite.Sprite):
     def __init__(self, tile_type, pos_x, pos_y):
