@@ -1,7 +1,6 @@
 import os
 import pygame
 import sys
-import start_screen
 
 
 class Tile(pygame.sprite.Sprite):
@@ -37,28 +36,6 @@ class Player(pygame.sprite.Sprite):
             if level_map[int(self.coords[0])][int(self.coords[1] - 0.5)] in ['.', '@', '$']:
                 self.rect.x -= 25
                 self.coords[1] -= 0.5
-
-
-class Camera:
-    # зададим начальный сдвиг камеры
-    def __init__(self):
-        self.dx = 0
-        self.dy = 0
-
-    # сдвинуть объект obj на смещение камеры
-    def apply(self, obj):
-        obj.rect.x += self.dx
-        obj.rect.y += self.dy
-
-    # позиционировать камеру на объекте target
-    def update(self, target):
-        self.dx = -(target.rect.x + target.rect.w // 2 - WIDTH // 2)
-        self.dy = -(target.rect.y + target.rect.h // 2 - HEIGHT // 2)
-
-
-FPS = 60
-
-
 def terminate():
     pygame.quit()
     sys.exit()
@@ -176,8 +153,9 @@ class Border(pygame.sprite.Sprite):
             self.rect = pygame.Rect(x1, y1, x2 - x1, 1)
 
 all_sprites = pygame.sprite.Group()
-size = width, height = 850, 350
-screen = pygame.display.set_mode(size)
+size = width, height = 850, 1350
+FPS = 30
+
 
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
@@ -200,8 +178,6 @@ if __name__ == '__main__':
 
     player = None
 
-    # группы спрайтов
-    all_sprites = pygame.sprite.Group()
     tiles_group = pygame.sprite.Group()
     player_group = pygame.sprite.Group()
 
@@ -210,8 +186,6 @@ if __name__ == '__main__':
     player, level_x, level_y = generate_level(load_level('level_1.txt'))
     level_map = load_level('level_1.txt')
     clock = pygame.time.Clock()
-    camera = Camera()
-
     pygame.display.set_caption('Перемещение героя')
 
     while True:
@@ -221,7 +195,7 @@ if __name__ == '__main__':
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     player.move('up', level_map)
-                    Ball(10, 425, 175)
+                    Ball(10, 425, 1175)
                 elif event.key == pygame.K_RIGHT:
                     player.move('right', level_map)
                     Ball(10, 425, 175)
@@ -232,9 +206,6 @@ if __name__ == '__main__':
                     player.move('left', level_map)
                     Ball(10, 425, 175)
         screen.fill((0, 0, 0))
-        # camera.update(player)
-        # for sprite in all_sprites:
-        #     camera.apply(sprite)
         tiles_group.draw(screen)
         tiles_group.update()
         player_group.draw(screen)
