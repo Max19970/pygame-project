@@ -1,6 +1,6 @@
-import os
 import pygame
 import sys
+import os
 import sqlite3
 
 
@@ -38,8 +38,8 @@ def draw_text(screen):
     screen.blit(exit, (347, 500, 500, 500))
 
 
-def main_menu(size):
-    width, height = size
+def main_menu():
+    size = 800, 600
     screen = pygame.display.set_mode(size)
     background = pygame.Color('grey')
     screen.fill(background)
@@ -98,8 +98,11 @@ def main_menu(size):
 def rules():
     rules = ['В этой игре ты управляешь динозавриком Хромом',
              'Уворачивайся от препятствий, встречающихся по пути!',
-             'Прыжок - пробел',
-             'Вернуться в меню - ESC (не в игре)']
+             'Прыжок - стрелка вверх',
+             'Пригнуться - стрелка вниз'
+             'Выйти из игры - ESC (во время игры)',
+             'Назад - ESC (в меню)',
+             'Выбор в меню - Enter']
     rules_screen = pygame.Surface((800, 600))
     rules_screen.fill(pygame.Color('grey'))
     font = pygame.font.Font(None, 40)
@@ -157,15 +160,3 @@ class Choice_arrow(pygame.sprite.Sprite):
             elif self.choice == 3:
                 self.rect.x = 252
                 self.rect.y = 320
-
-
-def main():
-    pygame.init()
-    pygame.display.init()
-    size = 800, 600
-
-    main_menu(size)
-
-
-if __name__ == '__main__':
-    main()
