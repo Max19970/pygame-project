@@ -19,11 +19,9 @@ def main():
     pygame.display.set_caption('Динозаврик "Хром"')  # хромированный динозаврик
     player = characters.Player()
     ground = characters.Ground(0, 330)
-    cactus = characters.cactus(randint(500, 1200), 253)
+    cactus = characters.Cactus(randint(500, 1200), 253)
     cactusm = characters.cactusm(randint(500, 1200), 275)
     ground_further = characters.Ground(ground.rect.size[0], 330)
-    cactus_further = characters.Ground(cactus.rect.size[0], 330)
-    cactusm_further = characters.Ground(cactusm.rect.size[0], 330)
     speed = 0
     score = 0
     started = False
@@ -78,27 +76,19 @@ def main():
                 elif event.type == ground_move:
                     ground.move()
                     ground_further.move()
+                    cactus.move()
+                    cactusm.move()
                     if ground.rect.x + ground.rect.size[0] < 0:
                         ground.rect.x = ground_further.rect.size[0]
+                        cactusm.spawn()
+                        cactus.spawn()
                     elif ground_further.rect.x + ground_further.rect.size[0] < 0:
                         ground_further.rect.x = ground.rect.size[0]
-
-                    cactus.move()
-                    cactus_further.move()
-                    if cactus.rect.x + cactus.rect.size[0] < 0:
-                        cactus.rect.x = cactus_further.rect.size[0]
-                    elif cactus_further.rect.x + cactus_further.rect.size[0] < 0:
-                        cactus_further.rect.x = cactus.rect.size[0]
-
-                    cactusm.move()
-                    cactusm_further.move()
-                    if cactusm.rect.x + cactusm.rect.size[0] < 0:
-                        cactusm.rect.x = cactusm_further.rect.size[0]
-                    elif cactusm_further.rect.x + cactusm_further.rect.size[0] < 0:
-                        cactusm_further.rect.x = cactusm.rect.size[0]
-
+                        cactusm.spawn()
+                        cactus.spawn()
                 elif event.type == score_count:
                     score += 1
+
 
         if speed < -12.5:
             pygame.time.set_timer(player_jump, 0)
@@ -117,5 +107,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
