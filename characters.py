@@ -1,6 +1,7 @@
 import pygame
 import os
 import sys
+from random import randint
 
 
 all_sprites = pygame.sprite.Group()
@@ -74,16 +75,17 @@ class Ground(pygame.sprite.Sprite):
     #def __init__(self):
         #super().__init__(bird_sprites, all_sprites)
 
-class cactus(pygame.sprite.Sprite):
+class Cactus(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
         self.image = load_image('cactus.png')
-        self.image2 = load_image('cacti-small.png')
         self.rect = self.image.get_rect().move(x, y)
         self.mask = pygame.mask.from_surface(self.image)
 
     def move(self):
         self.rect.x -= 5
+    def spawn(self):
+        self.rect = self.image.get_rect().move(randint(800, 1000), 253)
 
 
 class cactusm(pygame.sprite.Sprite):
@@ -92,6 +94,8 @@ class cactusm(pygame.sprite.Sprite):
         self.image = load_image('cacti-small.png')
         self.rect = self.image.get_rect().move(x, y)
         self.mask = pygame.mask.from_surface(self.image)
-
     def move(self):
         self.rect.x -= 5
+
+    def spawn(self):
+        self.rect = self.image.get_rect().move(randint(1050, 1200), 253)
