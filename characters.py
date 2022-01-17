@@ -74,7 +74,24 @@ class Ground(pygame.sprite.Sprite):
     #def __init__(self):
         #super().__init__(bird_sprites, all_sprites)
 
+class cactus(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__(all_sprites)
+        self.image = load_image('cactus.png')
+        self.image2 = load_image('cacti-small.png')
+        self.rect = self.image.get_rect().move(x, y)
+        self.mask = pygame.mask.from_surface(self.image)
 
-#class Cactus(pygame.sprite.Sprite):
-    #def __init__(self):
-        #super().__init__(cactus_sprites, all_sprites)
+    def move(self):
+        self.rect.x -= 5
+
+
+class cactusm(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__(all_sprites)
+        self.image = load_image('cacti-small.png')
+        self.rect = self.image.get_rect().move(x, y)
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def move(self):
+        self.rect.x -= 5
