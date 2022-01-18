@@ -21,6 +21,9 @@ def main():
     ground = characters.Ground(0, 330)
     cactus = characters.Cactus(randint(500, 1200), 253)
     cactusm = characters.cactusm(randint(500, 1200), 275)
+    cactus3 = characters.Cactus3(randint(500, 1200), 275)
+    cactus4 = characters.Cactus4(randint(500, 1200), 275)
+    cactusm2 = characters.cactusm2(randint(500, 1200), 275)
     ground_further = characters.Ground(ground.rect.size[0], 330)
     speed = 0
     score = 0
@@ -78,14 +81,23 @@ def main():
                     ground_further.move()
                     cactus.move()
                     cactusm.move()
+                    cactus3.move()
+                    cactusm2.move()
                     if ground.rect.x + ground.rect.size[0] < 0:
                         ground.rect.x = ground_further.rect.size[0]
-                        cactusm.spawn()
-                        cactus.spawn()
+                        cactusm.spawn(randint(800,900))
+                        cactus.spawn(randint(1100, 1300))
+                        cactus3.spawn(randint(1500, 1700))
+                        cactusm2.spawn(randint(1850, 2050))
+                        cactus4.spawn()
                     elif ground_further.rect.x + ground_further.rect.size[0] < 0:
                         ground_further.rect.x = ground.rect.size[0]
-                        cactusm.spawn()
-                        cactus.spawn()
+                        cactusm.spawn(randint(1500, 1700))
+                        cactus.spawn(randint(1850, 2050))
+                        cactus3.spawn(randint(1100, 1300))
+                        cactusm2.spawn(randint(800,900))
+                        cactus4.spawn()
+
                 elif event.type == score_count:
                     score += 1
 
