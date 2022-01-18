@@ -84,18 +84,54 @@ class Cactus(pygame.sprite.Sprite):
 
     def move(self):
         self.rect.x -= 5
-    def spawn(self):
-        self.rect = self.image.get_rect().move(randint(800, 1000), 253)
+    def spawn(self, x):
+        self.rect = self.image.get_rect().move(x, 253)
 
 
 class cactusm(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
         self.image = load_image('cacti-small.png')
-        self.rect = self.image.get_rect().move(x, y)
+        self.rect = self.image.get_rect().move(x, 800)
         self.mask = pygame.mask.from_surface(self.image)
     def move(self):
         self.rect.x -= 5
 
+    def spawn(self, x):
+        self.rect = self.image.get_rect().move(x, 273)
+
+class Cactus3(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__(all_sprites)
+        self.image = load_image('cacti-3.png')
+        self.rect = self.image.get_rect().move(x, 800)
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def move(self):
+        self.rect.x -= 5
+    def spawn(self, x):
+        self.rect = self.image.get_rect().move(x, 253)
+
+class cactusm2(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__(all_sprites)
+        self.image = load_image('cacti-small2.png')
+        self.rect = self.image.get_rect().move(x, 800)
+        self.mask = pygame.mask.from_surface(self.image)
+    def move(self):
+        self.rect.x -= 5
+
+    def spawn(self, x):
+        self.rect = self.image.get_rect().move(x, 273)
+
+class Cactus4(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__(all_sprites)
+        self.image = load_image('cacti-2.png')
+        self.rect = self.image.get_rect().move(x, 800)
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def move(self):
+        self.rect.x -= 5
     def spawn(self):
-        self.rect = self.image.get_rect().move(randint(1050, 1200), 253)
+        self.rect = self.image.get_rect().move(2280, 253)
