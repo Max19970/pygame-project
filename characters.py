@@ -1,14 +1,14 @@
 import pygame
 import os
 import sys
-from random import randint
+import main
 
 
 all_sprites = pygame.sprite.Group()
 player_sprites = pygame.sprite.Group()
 bird_sprites = pygame.sprite.Group()
 cactus_sprites = pygame.sprite.Group()
-
+flag = False
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
@@ -32,7 +32,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(player_sprites, all_sprites)
         self.sprites = self.cut_sprites(load_image('dino.png'))
         self.duck_sprites = self.cut_duck(load_image('dino_ducking.png'))
-        self.image = self.sprites[0]
+        self.image = load_image('dinof.png')
         self.rect = self.image.get_rect().move(50, 253)
 
     def cut_sprites(self, sprites_file):
@@ -61,6 +61,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = 253
 
 
+
 class Ground(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
@@ -71,6 +72,8 @@ class Ground(pygame.sprite.Sprite):
         self.rect.x -= 5
 
 
+
+
 #class Bird(pygame.sprite.Sprite):
     #def __init__(self):
         #super().__init__(bird_sprites, all_sprites)
@@ -79,59 +82,106 @@ class Cactus(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
         self.image = load_image('cactus.png')
-        self.rect = self.image.get_rect().move(x, y)
         self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect().move(800, 253)
 
     def move(self):
         self.rect.x -= 5
     def spawn(self, x):
         self.rect = self.image.get_rect().move(x, 253)
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def update(self):
+        if pygame.sprite.collide_mask(self, Player()):
+            global flag
+            flag = True
+            self.kill()
 
 
 class cactusm(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
         self.image = load_image('cacti-small.png')
-        self.rect = self.image.get_rect().move(x, 800)
         self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect().move(x, 273)
     def move(self):
         self.rect.x -= 5
 
     def spawn(self, x):
         self.rect = self.image.get_rect().move(x, 273)
+        self.mask = pygame.mask.from_surface(self.image)
+
+
+    def update(self):
+        if pygame.sprite.collide_mask(self, Player()):
+            global flag
+            flag = True
+            self.kill()
+
+
 
 class Cactus3(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
         self.image = load_image('cacti-3.png')
-        self.rect = self.image.get_rect().move(x, 800)
         self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect().move(x, 253)
 
     def move(self):
         self.rect.x -= 5
     def spawn(self, x):
         self.rect = self.image.get_rect().move(x, 253)
+        self.mask = pygame.mask.from_surface(self.image)
+
+
+    def update(self):
+        if pygame.sprite.collide_mask(self, Player()):
+            global flag
+            flag = True
+            self.kill()
 
 class cactusm2(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
         self.image = load_image('cacti-small2.png')
-        self.rect = self.image.get_rect().move(x, 800)
         self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect().move(x, 273)
     def move(self):
         self.rect.x -= 5
 
     def spawn(self, x):
         self.rect = self.image.get_rect().move(x, 273)
+        self.mask = pygame.mask.from_surface(self.image)
+
+
+    def update(self):
+        if pygame.sprite.collide_mask(self, Player()):
+            global flag
+            flag = True
+            self.kill()
 
 class Cactus4(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
         self.image = load_image('cacti-2.png')
-        self.rect = self.image.get_rect().move(x, 800)
         self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect().move(x, 2530)
 
     def move(self):
         self.rect.x -= 5
     def spawn(self):
         self.rect = self.image.get_rect().move(2280, 253)
+        self.mask = pygame.mask.from_surface(self.image)
+
+
+    def update(self):
+        if pygame.sprite.collide_mask(self, Player()):
+            global flag
+            flag = True
+            self.kill()
+
+def stolknovenie():
+    global flag
+    if flag == True:
+        flag = False
+        return True
