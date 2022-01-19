@@ -1,5 +1,5 @@
 import pygame
-
+import sqlite3
 
 def main(score):
     screen = pygame.display.set_mode((800, 600))
@@ -36,7 +36,34 @@ def main(score):
             if event.type == pygame.KEYDOWN:
                 if active:
                     if event.key == pygame.K_RETURN:
-                        print(text)
+                        con = sqlite3.connect('data/leaderboard.sqlite')
+                        cur = con.cursor()
+                        players = cur.execute("""SELECT * FROM scores""").fetchall()
+                        con.close()
+                        
+                        # тут надо сделать адекватные замены, но на пальцах вроде бы работает
+                        
+                        for player in players:
+                            if text == player[1] and score > player[2]:
+                                player[1] = text
+                                player[2] = score
+                            elif text == player[1] and score > player[2]:
+                                pass
+                            elif score > player[2]:
+                                player[1] = text
+                                player[2] = score
+                        for player in players:
+                            for player1 in players:
+                                if player1[0] > player[0] and player1[2] < player[2]:
+                                    x = player[0]
+                                    player[0] = player1[0]
+                                    player1[0] = x
+                                elif player1[0] < player[0] and player1[2] > player[2]:
+                                    x = player[0]
+                                    player[0] = player1[0]
+                                    player1[0] = x
+                                
+                                
                         text = ''
                         done = True
                     elif event.key == pygame.K_BACKSPACE:
