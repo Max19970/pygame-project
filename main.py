@@ -2,6 +2,7 @@ import pygame
 import sys
 import characters
 import start_screen
+import finish_screen
 from random import randint, choice
 
 
@@ -191,7 +192,7 @@ def main():
                     cactusm2.spawn(randint(1850, 2050))
                     bird.spawn(randint(2200, 2300))
                     player.spawn()
-                    # !!! экран проигрыша СЮДА !!!
+                    finish_screen.main(score)
                     main()
 
         if not dont_move:
