@@ -20,10 +20,10 @@ def main():
     player = characters.Player()
     ground = characters.Ground(0, 330)
     cactus = characters.Cactus(randint(500, 1200), 253)
-    cactusm = characters.cactusm(randint(500, 1200), 275)
-    cactus3 = characters.Cactus3(randint(500, 1200), 275)
+    cactusm = characters.cactusm(randint(1100, 1300), 275)
+    cactus3 = characters.Cactus3(randint(1500, 1700), 275)
     cactus4 = characters.Cactus4(randint(500, 1200), 275)
-    cactusm2 = characters.cactusm2(randint(500, 1200), 275)
+    cactusm2 = characters.cactusm2(randint(1850, 2050), 275)
     ground_further = characters.Ground(ground.rect.size[0], 330)
     speed = 0
     score = 0
@@ -38,8 +38,9 @@ def main():
     pygame.time.set_timer(player_sprite_change, 100)
     pygame.time.set_timer(ground_move, 10)
     pygame.time.set_timer(score_count, 100)
-
+    player.image = player.sprites[0]
     while True:
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT or \
                     event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -95,11 +96,16 @@ def main():
                         cactusm.spawn(randint(1500, 1700))
                         cactus.spawn(randint(1850, 2050))
                         cactus3.spawn(randint(1100, 1300))
-                        cactusm2.spawn(randint(800,900))
+                        cactusm2.spawn(randint(800,801))
                         cactus4.spawn()
 
                 elif event.type == score_count:
                     score += 1
+                if characters.stolknovenie() == True and player_jumping != True:
+                    screen.fill((0, 0, 0))
+                    main()
+
+
 
 
         if speed < -12.5:
