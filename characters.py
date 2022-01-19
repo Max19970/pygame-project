@@ -60,6 +60,10 @@ class Player(pygame.sprite.Sprite):
         if self.rect.y > 253:
             self.rect.y = 253
 
+    def spawn(self):
+        self.image = load_image('dinof.png')
+        self.rect = self.image.get_rect().move(50, 253)
+
 
 
 class Ground(pygame.sprite.Sprite):
@@ -70,6 +74,10 @@ class Ground(pygame.sprite.Sprite):
 
     def move(self):
         self.rect.x -= 5
+
+    def spawn(self):
+        self.kill()
+        self.rect = self.image.get_rect().move(0, 330)
 
 
 
@@ -95,7 +103,6 @@ class Cactus(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, Player()):
             global flag
             flag = True
-            self.kill()
 
 
 class cactusm(pygame.sprite.Sprite):
@@ -116,7 +123,6 @@ class cactusm(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, Player()):
             global flag
             flag = True
-            self.kill()
 
 
 
@@ -138,7 +144,6 @@ class Cactus3(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, Player()):
             global flag
             flag = True
-            self.kill()
 
 class cactusm2(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -158,7 +163,6 @@ class cactusm2(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, Player()):
             global flag
             flag = True
-            self.kill()
 
 class Cactus4(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -178,7 +182,6 @@ class Cactus4(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, Player()):
             global flag
             flag = True
-            self.kill()
 
 def stolknovenie():
     global flag
