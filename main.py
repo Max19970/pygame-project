@@ -102,8 +102,15 @@ def main():
                 elif event.type == score_count:
                     score += 1
                 if characters.stolknovenie() == True and player_jumping != True:
-                    screen.fill((0, 0, 0))
+                    cactusm.spawn(randint(1500, 1700))
+                    cactus.spawn(randint(1850, 2050))
+                    cactus3.spawn(randint(1100, 1300))
+                    cactusm2.spawn(randint(800, 801))
+                    cactus4.spawn()
+                    player.spawn()
                     main()
+
+
 
 
 
