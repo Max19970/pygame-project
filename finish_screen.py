@@ -39,19 +39,21 @@ def main(score):
                         con = sqlite3.connect('data/leaderboard.sqlite')
                         cur = con.cursor()
                         players = cur.execute("""SELECT * FROM scores""").fetchall()
-                        con.close()
-                        
+                        players = [[g for g in e] for e in players]
+                        print(players)
                         # тут надо сделать адекватные замены, но на пальцах вроде бы работает
                         
                         for player in players:
-                            if text == player[1] and score > player[2]:
+                            if text == player[1] and int(score) > player[2]:
                                 player[1] = text
-                                player[2] = score
-                            elif text == player[1] and score > player[2]:
+                                player[2] = int(score)
+                                break
+                            elif text == player[1] and int(score) > player[2]:
                                 pass
-                            elif score > player[2]:
+                            elif int(score) > player[2]:
                                 player[1] = text
-                                player[2] = score
+                                player[2] = int(score)
+                                break
                         for player in players:
                             for player1 in players:
                                 if player1[0] > player[0] and player1[2] < player[2]:
@@ -62,8 +64,16 @@ def main(score):
                                     x = player[0]
                                     player[0] = player1[0]
                                     player1[0] = x
-                                
-                                
+                        players = [[i + 1, players[i][1], players[i][2]] for i in range(len(players))]
+                        print(players)
+                        cur.execute("""DELETE from scores""")
+                        con.commit()
+                        for player in players:
+                            cur.execute(f"""INSERT INTO scores(id, nickname, score) 
+                            VALUES({player[0]}, '{player[1]}', {player[2]})""")
+                            con.commit()
+                        con.close()
+
                         text = ''
                         done = True
                     elif event.key == pygame.K_BACKSPACE:
